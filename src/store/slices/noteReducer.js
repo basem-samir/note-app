@@ -28,8 +28,25 @@ export const noteSlice = createSlice({
       };
       state.notes.push(newNote);
     },
+    createCategory: (state, action) => {
+      const newCategory = action.payload.trim().toLowerCase();
+      if (!newCategory) {
+        alert("Category name cannot be empty");
+        return;
+      }
+
+      const isFound = state.categories.find(
+        (category) => category.toLowerCase() === newCategory
+      );
+
+      if (isFound) {
+        alert("This category already exists");
+      } else {
+        state.categories.push(action.payload.trim());
+      }
+    },
   },
 });
 
-export const { createNote } = noteSlice.actions;
+export const { createNote, createCategory } = noteSlice.actions;
 export default noteSlice.reducer;
