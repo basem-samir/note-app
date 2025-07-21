@@ -17,8 +17,19 @@ export const noteSlice = createSlice({
     filter: "all",
     searchQuery: "",
   },
-  reducers: {},
+  reducers: {
+    createNote: (state, action) => {
+      const newNote = {
+        id: Date.now(),
+        text: action.payload.text,
+        category: action.payload.category,
+        createdAt: new Date().toLocaleString(),
+        deleted: false,
+      };
+      state.notes.push(newNote);
+    },
+  },
 });
 
-export const {} = noteSlice.actions;
+export const { createNote } = noteSlice.actions;
 export default noteSlice.reducer;
