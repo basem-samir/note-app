@@ -28,6 +28,15 @@ export const noteSlice = createSlice({
       };
       state.notes.push(newNote);
     },
+    deleteNote: (state, action) => {
+      const deletedNote = state.notes.find(
+        (note) => note.id === action.payload
+      );
+      if (deletedNote) {
+        deletedNote.deleted = true;
+      }
+    },
+
     createCategory: (state, action) => {
       const newCategory = action.payload.trim().toLowerCase();
       if (!newCategory) {
@@ -48,5 +57,5 @@ export const noteSlice = createSlice({
   },
 });
 
-export const { createNote, createCategory } = noteSlice.actions;
+export const { createNote, deleteNote, createCategory } = noteSlice.actions;
 export default noteSlice.reducer;
