@@ -4,6 +4,8 @@ import { deleteNote } from "../store/slices/noteReducer";
 export default function NotesList() {
   // get notes from redux
   const notes = useSelector((state) => state.notes.notes);
+  const currentCategory = useSelector((state) => state.notes.filter);
+  console.log(currentCategory);
   console.log(notes);
 
   // dispatch delete note
@@ -15,7 +17,12 @@ export default function NotesList() {
   return (
     <div className="space-y-4 mt-6">
       {notes
-        .filter((note) => !note.deleted)
+        .filter((note) => {
+          const cat = currentCategory.toLowerCase();
+          if (cat === "all") return !note.deleted;
+          if (cat === "deleted") return note.deleted;
+          return note.category === cat && !note.deleted;
+        })
         .map((note) => (
           <div
             key={note.id}

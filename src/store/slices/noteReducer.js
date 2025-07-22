@@ -36,7 +36,6 @@ export const noteSlice = createSlice({
         deletedNote.deleted = true;
       }
     },
-
     createCategory: (state, action) => {
       const newCategory = action.payload.trim().toLowerCase();
       if (!newCategory) {
@@ -54,8 +53,12 @@ export const noteSlice = createSlice({
         state.categories.push(action.payload.trim());
       }
     },
+    changeFilters: (state, action) => {
+      state.filter = action.payload;
+    },
   },
 });
 
-export const { createNote, deleteNote, createCategory } = noteSlice.actions;
+export const { createNote, deleteNote, createCategory, changeFilters } =
+  noteSlice.actions;
 export default noteSlice.reducer;
